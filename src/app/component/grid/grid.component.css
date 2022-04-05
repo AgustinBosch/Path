@@ -1,0 +1,14 @@
+rect{
+    stroke: #000;
+    stroke-width: 1px;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5px;
+}

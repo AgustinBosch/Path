@@ -1,0 +1,24 @@
+<div class="buttons">
+	<div>
+		<button (click)="dijkstra()">Dijkstra</button>
+		<button>A* Star</button>
+	</div>
+	<button (click)="reset()">Reset</button>
+</div>
+<div class="box">
+	<svg [attr.width]="size_cell * node_x" [attr.height]="size_cell * node_y">
+		<rect
+			*ngFor="let node of grid.getNodes()"
+			[attr.x]="node.x * size_cell"
+			[attr.y]="node.y * size_cell"
+			[attr.width]="size_cell"
+			[attr.height]="size_cell"
+			[attr.fill]="node.color"
+			(mousedown)="mouseHandler($event, node)"
+			(mouseenter)="mouseHandler($event, node)"
+			(mouseup)="mouseHandler($event, node)"
+		/>
+	</svg>
+	<br />
+	<p>target {{ "x: " + target.x + " y: " + target.y }}</p>
+</div>
