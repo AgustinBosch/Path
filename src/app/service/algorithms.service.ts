@@ -33,7 +33,6 @@ export class AlgorithmsService {
 		grid.start_node.heuristic = grid.start_node.distanceTo(grid.end_node);
 		unvisited_nodes.enqueue(grid.start_node);
 		while (unvisited_nodes.length() > 0) {
-			unvisited_nodes.printNodes();
 			let current_node = unvisited_nodes.dequeue();
 			if (current_node!.isWall) continue;
 			if (current_node!.isEnd) return this.backtrack(grid);
