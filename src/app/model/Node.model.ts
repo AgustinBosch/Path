@@ -2,6 +2,7 @@ export class Node {
 	x: number;
 	y: number;
 	distance: number = Infinity;
+	heuristic: number = 0;
 	isWall: boolean = false;
 	isPath: boolean = false;
 	isStart: boolean = false;
@@ -13,6 +14,13 @@ export class Node {
 		this.x = x;
 		this.y = y;
 	}
+
+	distanceTo(node: Node) {
+		let dx = this.x - node.x;
+		let dy = this.y - node.y;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+
 	toggleWall() {
 		if (this.isWall) {
 			this.isWall = false;

@@ -9,7 +9,11 @@ export class PriorityQueue {
 			return;
 		} else {
 			for (let i = 0; i < this.priorityQueue.length; i++) {
-				if (this.priorityQueue[i].distance > node.distance) {
+				if (
+					this.priorityQueue[i].distance +
+						this.priorityQueue[i].heuristic >
+					node.distance + node.heuristic
+				) {
 					this.priorityQueue.splice(i, 0, node);
 					return;
 				}
@@ -19,7 +23,7 @@ export class PriorityQueue {
 	}
 	sort() {
 		this.priorityQueue.sort((a, b) => {
-			return a.distance - b.distance;
+			return a.distance + a.heuristic - (b.distance + b.heuristic);
 		});
 	}
 	dequeue() {
@@ -36,7 +40,11 @@ export class PriorityQueue {
 		console.log("PRIORITY QUEUE: ");
 		for (let i = 0; i < this.priorityQueue.length; i++) {
 			console.log(
-				this.priorityQueue[i].x + " " + this.priorityQueue[i].y
+				this.priorityQueue[i].x +
+					" " +
+					this.priorityQueue[i].y +
+					" " +
+					this.priorityQueue[i].distance
 			);
 		}
 		console.log("END PRIORITY QUEUE");

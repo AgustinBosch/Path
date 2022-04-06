@@ -75,4 +75,8 @@ export class GridComponent implements OnInit {
 	dijkstra() {
 		console.log(this.algorithmsService.dijkstra(this.grid));
 	}
+
+	aStar() {
+		console.log(this.algorithmsService.aStar(this.grid));
+	}
 }
