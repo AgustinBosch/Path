@@ -67,16 +67,11 @@ export class GridComponent implements OnInit {
 		}
 	}
 
-	neighbors(node: Node) {
-		console.log(node);
-		console.log(this.grid.getNeighbors(node));
-	}
-
 	dijkstra() {
-		console.log(this.algorithmsService.dijkstra(this.grid));
+		this.algorithmsService.dijkstra(this.grid);
 	}
 
 	aStar() {
-		console.log(this.algorithmsService.aStar(this.grid));
+		this.algorithmsService.aStar(this.grid);
 	}
 }

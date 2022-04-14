@@ -35,18 +35,4 @@ export class PriorityQueue {
 	length() {
 		return this.priorityQueue.length;
 	}
-
-	printNodes() {
-		console.log("PRIORITY QUEUE: ");
-		for (let i = 0; i < this.priorityQueue.length; i++) {
-			console.log(
-				this.priorityQueue[i].x +
-					" " +
-					this.priorityQueue[i].y +
-					" " +
-					this.priorityQueue[i].distance
-			);
-		}
-		console.log("END PRIORITY QUEUE");
-	}
 }

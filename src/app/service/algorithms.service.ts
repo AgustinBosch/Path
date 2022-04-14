@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { delay } from "rxjs";
 import { Grid } from "../model/Grid.model";
 import { Node } from "../model/Node.model";
 import { PriorityQueue } from "../model/PriorityQueue.model";
@@ -10,7 +11,7 @@ export class AlgorithmsService {
 	constructor() {}
 
 	// dijkstra algorithm
-	dijkstra(grid: Grid) {
+	async dijkstra(grid: Grid) {
 		let visited_nodes = [];
 		let unvisited_nodes = new PriorityQueue();
 		grid.start_node.distance = 0;
@@ -20,13 +21,18 @@ export class AlgorithmsService {
 			if (current_node!.isWall) continue;
 			if (current_node!.isEnd) return this.backtrack(grid);
 			visited_nodes.push(current_node);
-			this.updateUnvisitedNeighbors(current_node!, grid, unvisited_nodes);
+			await this.updateUnvisitedNeighbors(
+				current_node!,
+				grid,
+				unvisited_nodes,
+				false
+			);
 		}
 		return visited_nodes;
 	}
 
 	// a* algorithm
-	aStar(grid: Grid) {
+	async aStar(grid: Grid) {
 		let visited_nodes = [];
 		let unvisited_nodes = new PriorityQueue();
 		grid.start_node.distance = 0;
@@ -37,28 +43,32 @@ export class AlgorithmsService {
 			if (current_node!.isWall) continue;
 			if (current_node!.isEnd) return this.backtrack(grid);
 			visited_nodes.push(current_node);
-			this.updateUnvisitedNeighborsHeuristic(
+			await this.updateUnvisitedNeighbors(
 				current_node!,
 				grid,
-				unvisited_nodes
+				unvisited_nodes,
+				true
 			);
 		}
 		return visited_nodes;
 	}
 
-	updateUnvisitedNeighborsHeuristic(
+	async updateUnvisitedNeighbors(
 		current_node: Node,
 		grid: Grid,
-		unvisited_nodes: PriorityQueue
+		unvisited_nodes: PriorityQueue,
+		heuristic: boolean
 	) {
 		let neighbors = grid.getNeighbors(current_node);
 		for (let neighbor of neighbors) {
 			if (neighbor.isWall) continue;
 			if (neighbor.color === "white") {
+				await this.delayuwu(10);
 				neighbor.color = "gray";
 			}
 			let distance = current_node.distance + 1;
-			neighbor.heuristic = neighbor.distanceTo(grid.end_node);
+			if (heuristic)
+				neighbor.heuristic = neighbor.distanceTo(grid.end_node);
 			if (distance < neighbor.distance) {
 				neighbor.distance = distance;
 				neighbor.parent = current_node;
@@ -67,34 +77,19 @@ export class AlgorithmsService {
 		}
 	}
 
-	updateUnvisitedNeighbors(
-		current_node: Node,
-		grid: Grid,
-		unvisited_nodes: PriorityQueue
-	) {
-		let neighbors = grid.getNeighbors(current_node);
-		for (let neighbor of neighbors) {
-			if (neighbor.isWall) continue;
-			if (neighbor.color === "white") {
-				neighbor.color = "gray";
-			}
-			let distance = current_node.distance + 1;
-			if (distance < neighbor.distance) {
-				neighbor.distance = distance;
-				neighbor.parent = current_node;
-				unvisited_nodes.enqueue(neighbor);
-			}
-		}
-	}
-
-	backtrack(grid: Grid) {
+	async backtrack(grid: Grid) {
 		let path = [];
 		let current = grid.end_node.parent!;
 		while (current !== grid.start_node) {
+			await this.delayuwu(50);
 			current.togglePath();
 			path.push(current);
 			current = current.parent!;
 		}
 		return path.reverse();
+	}
+
+	delayuwu(ms: number) {
+		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 }

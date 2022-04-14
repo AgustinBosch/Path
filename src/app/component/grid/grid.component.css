@@ -1,14 +1,36 @@
-rect{
-    stroke: #000;
-    stroke-width: 1px;
+rect {
+	stroke: #000;
+	stroke-width: 1px;
+	transition: fill 0.1s;
 }
-.box{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.white {
+	fill: #fff;
 }
-.buttons{
-    display: flex;
-    justify-content: space-evenly;
-    margin: 5px;
+.black {
+	fill: #000;
+}
+.gray {
+	fill: #ccc;
+}
+.red {
+	transition: fill 0s;
+	fill: #f00;
+}
+.green {
+	transition: fill 0s;
+	fill: #0f0;
+}
+.blue {
+	fill: #00f;
+}
+
+.box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.buttons {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 5px;
 }
